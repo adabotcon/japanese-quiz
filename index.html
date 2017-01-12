@@ -20,17 +20,19 @@
 	<div class="hidden js-info-question-form">
 		<div class="js-quiz-info">
 			<label>Question: </label>
-			<p class="js-question-number">1</p>
+			<p class="js-question-number"></p>
 			<label>Correct: </label>
-			<p class="js-number-correct">0</p>
+			<p class="js-number-correct"></p>
 			<label>Incorrect: </label>
-			<p class="js-number-incorrect">0</p>
+			<p class="js-number-incorrect"></p>
 		</div>
-		<form class="js-question-form">
+		<div class="js-question-form"></div>
+		<form class="js-question-button-form">
+			<button type="submit" class="check-answer" id="check-answer">Check Answer</button>
 		</form>	
 	</div>
 	<form class="hidden js-answers-form">
-			<p class="hidden correct-incorrect"></p>
+			<span class="correct-incorrect"></span>
 			<button type="submit">Next Question</button>
 	</form>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

@@ -2,21 +2,22 @@
 var answerState = {
 		answers: []
 	};
-//Correct Answers
-var correctAnswers = 0;
-//incorrect Answers
-var incorrectAnswers = 0;
-//currentQuestion
-var numCurrentQuestion = 1;
 
-function startQuiz(answerState, startElement, questionElement, answersElement, numCurrentQuestion, correctAnswers, incorrectAnswers){
+var infoState = {}
+
+function startQuiz(answerState, startElement, questionElement, answersElement, infoState){
 	startElement.submit(function(event){
 		event.preventDefault();
-		correctAnswers = 0;
-		incorrectAnswers = 0;
-		numCurrentQuestion =1;
-		addQuestionAnswers(answerState, startElement, startElement, questionElement, answersElement, 0, correctAnswers, numCurrentQuestion, incorrectAnswers);
+		createInfoState(infoState);
+		addQuestionAnswers(answerState, startElement, startElement, questionElement, answersElement, 0, infoState);
 	})
+}
+
+function createInfoState(infoState){
+	infoState.correctAnswers = 0;
+	infoState.incorrectAnswers = 0;
+	infoState.numCurrentQuestion = 1;
+
 }
 
 function createAnswerState(){
@@ -112,29 +113,31 @@ function createAnswerState(){
 	});
 }
 
-function displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, correctAnswers, numCurrentQuestion, isCorrectAnswer, incorrectAnswers){
-	debugger;
+function displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, isCorrectAnswer, infoState){
 	if(isCorrectAnswer){
-		$('.js-answers-form').find('.correct-incorrect').text('Correct!');
+		$('.correct-incorrect').text('Correct!');
 	}else{
-		$('.js-answers-form').find('.correct-incorrect').text('Incorrect');
+		$('.correct-incorrect').text('Incorrect.');
 	}
-	numCurrentQuestion++;
-	var questionID = numCurrentQuestion - 1;
+
+	infoState.numCurrentQuestion = infoState.numCurrentQuestion + 1;
+	console.log(infoState.numCurrentQuestion);
+	var questionID = infoState.numCurrentQuestion - 1;
+	debugger;
 
 	hideClass($('.js-info-question-form'));
 	showClass($('.js-answers-form'));
-	if(numCurrentQuestion === 11)
+	if(infoState.numCurrentQuestion === 11)
 	{
 		$('.js-answers-form').submit(function(event){
 			event.preventDefault();
-			renderFinalPage(answerState, startElement, questionElement, answersElement, numCurrentQuestion, correctAnswers, incorrectAnswers);
+			renderFinalPage(answerState, startElement, questionElement, answersElement, infoState);
 		})
 
 	}else{
 		$('.js-answers-form').submit(function(event){
 			event.preventDefault();
-			addQuestionAnswers(answerState, $('.js-answers-form'), questionElement, questionID, correctAnswers, numCurrentQuestion, incorrectAnswers);
+			addQuestionAnswers(answerState, startElement, $('.js-answers-form'), questionElement, answersElement, questionID, infoState);
 		})
 	}
 
@@ -149,7 +152,6 @@ function getNewQuestionForm(){
 				'<li class="answer js-answer-c"></li>' +
 				'<li class="answer js-answer-d"></li>' +
 			'</ul>' +
-			'<button type="submit" class="check-answer" id="check-answer">Check Answer</button>' +
 		'</div>';
 
 	return $(questionForm);	
@@ -170,10 +172,11 @@ function renderQuestion(answerState, questionID){
 
 }
 
-function addQuestionAnswers(answerState, startElement, currentElement, questionElement, answersElement, questionID, correctAnswers, numCurrentQuestion, incorrectAnswers){
+function addQuestionAnswers(answerState, startElement, currentElement, questionElement, answersElement, questionID, infoState){
 	var questionForm = renderQuestion(answerState, questionID);
-
+	
 	questionElement.html(questionForm);
+	renderInfoForm(infoState);
 	hideClass(currentElement);
 	showClass($('.js-info-question-form'));
 	var isCorrectAnswer = false;
@@ -185,10 +188,10 @@ function addQuestionAnswers(answerState, startElement, currentElement, questionE
 		isCorrectAnswer = isAnswerCorrect(answerState, $(this), questionID);
 	})
 
-	questionElement.submit(function(event){
+	$('.js-question-button-form').submit(function(event){
 		event.preventDefault();
-		changeCorrectState(correctAnswers, isCorrectAnswer);
-		displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, correctAnswers, numCurrentQuestion, isCorrectAnswer, incorrectAnswers);
+		changeCorrectState(infoState, isCorrectAnswer);
+		displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, isCorrectAnswer, infoState);
 
 	})
 }
@@ -221,30 +224,30 @@ function isAnswerCorrect(answerState, element, questionID){
 
 }
 
-function changeCorrectState(correctAnswers, incorrectAnswers, isCorrectAnswer){
+function changeCorrectState(infoStat, isCorrectAnswer){
 	if(isCorrectAnswer){
-		correctAnswer++;
+		infoState.correctAnswers = infoState.correctAnswers + 1;
 	} else {
-		incorrectAnswers++;
+		infoState.incorrectAnswers = infoState.incorrectAnswers + 1;
 	}
 }
 
-function renderInfoForm(correctAnswers, incorrectAnswers, numCurrentQuestion){
+function renderInfoForm(infoState){
 	var formElement = $('.js-info-question-form');
 
-	formElement.find('.js-question-number').text(numCurrentQuestion);
-	formElement.find('.js-number-correct').text(correctAnswers);
-	formElement.find('.js-number-incorrect').text(incorrectAnswers);
+	formElement.find('.js-question-number').text(infoState.numCurrentQuestion);
+	formElement.find('.js-number-correct').text(infoState.correctAnswers);
+	formElement.find('.js-number-incorrect').text(infoState.incorrectAnswers);
 }
 
-function renderFinalPage(answerState, startElement, questionElement, answersElement, numCurrentQuestion, correctAnswers, incorrectAnswers){
+function renderFinalPage(answerState, startElement, questionElement, answersElement, infoState){
 	var finalElement = $('.js-final-page');
 
-	finalElement.find('.js-final-number-correct').text("You got " + correctAnswers + " out of 10");
+	finalElement.find('.js-final-number-correct').text("You got " + infoState.correctAnswers + " out of 10");
 
 	finalElement.submit(function(event){
 		event.preventDefault();
-		startQuiz(answerState, startElement, questionElement, answersElement, numCurrentQuestion, correctAnswers, incorrectAnswers);
+		startQuiz(answerState, startElement, questionElement, answersElement, infoState);
 	})
 }
 
@@ -254,5 +257,5 @@ $(function(){
 	var answersElement = $('.js-answers-form');
 
 	createAnswerState(answerState);
-	startQuiz(answerState, startElement, questionElement, answersElement, numCurrentQuestion, correctAnswers, incorrectAnswers);
+	startQuiz(answerState, startElement, questionElement, answersElement, infoState);
 })
