@@ -1,0 +1,22 @@
+.hidden{
+	display: none;
+}
+
+ul{
+	border: 1px black;
+}
+
+.answer-list > li {
+	margin-bottom: 20px;
+	border: 1px black;
+	padding: 20px;
+}
+
+.answer{
+	list-style: none;
+}
+
+.highlight{
+	border-color: green;
+	background-color: yellow;
+}

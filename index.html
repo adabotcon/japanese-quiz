@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Link to css -->
+	<link rel="stylesheet" type="text/css" href="main.css">
+<!-- Title and metas -->
+	<title>Japanese Cultural Quiz</title>
+	<meta name="Japanese Cultural Quiz" content="Quiz about Japanese culture for beginners">
+</head>
+<body>
+	<h1>Japanese Cultural Quiz</h1>
+	<form class="js-start-quiz">
+		<p class="start">Welcome to this quiz!</p>
+		<button type="submit" class="js-start" id="start">Start</button>
+	</form>
+	<form class="hidden js-final-page">
+		<p class="js-final-number-correct"></p>
+		<button type="submit" class="js-try-again">Try Again?</button>
+	</form>
+	<div class="hidden js-info-question-form">
+		<div class="js-quiz-info">
+			<label>Question: </label>
+			<p class="js-question-number">1</p>
+			<label>Correct: </label>
+			<p class="js-number-correct">0</p>
+			<label>Incorrect: </label>
+			<p class="js-number-incorrect">0</p>
+		</div>
+		<form class="js-question-form">
+		</form>	
+	</div>
+	<form class="hidden js-answers-form">
+			<p class="hidden correct-incorrect"></p>
+			<button type="submit">Next Question</button>
+	</form>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
