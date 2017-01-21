@@ -1,3 +1,7 @@
+*{
+	background-color: #a8d8f0;
+}
+
 .hidden{
 	display: none;
 }
@@ -20,11 +24,12 @@ ul{
 }
 
 .highlight{
-	background-color: pink;
+	background-color: #d8c0d8;
 }
 
 .question{
-	background-color: lightgray;
+	background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("pexels-photo-92997.jpeg") no-repeat center;
+	background-size: cover;
 	border: 1px solid darkgray;
 	text-align: center;
 	font-size: 35px;
@@ -32,7 +37,7 @@ ul{
 
 }
 
-.js-question-button-form{
+.question-button-form{
 	width: 100%;
 	text-align: center;
 }
@@ -47,4 +52,21 @@ ul{
 	vertical-align: top;
 	font-size: 16px;
 	line-height: 28px;
+}
+
+.quiz-header h1{
+	background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("pexels-photo-92997.jpeg") no-repeat center;
+	background-size: cover;
+	height: 50px;
+	width: 100%;
+	text-align: left;
+	margin-top: 0;
+	padding-top: 5px;
+	padding-left: 20px;
+	color: black;
+
+}
+
+.start, .start-button, .correct-incorrect, .next-button{
+	font-size: 20px;
 }

@@ -116,9 +116,9 @@ function createAnswerState(){
 
 function displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, isCorrectAnswer, infoState){
 	if(isCorrectAnswer){
-		$('.correct-incorrect').text('Correct!');
+		$('.js-correct-incorrect').text('Correct!');
 	}else{
-		$('.correct-incorrect').text('Incorrect.');
+		$('.js-correct-incorrect').text('Incorrect.');
 	}
 
 	infoState.numCurrentQuestion = infoState.numCurrentQuestion + 1;
