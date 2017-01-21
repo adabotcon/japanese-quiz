@@ -42,7 +42,7 @@ ul{
 	text-align: center;
 }
 
-.question-button-form button{
+.check-answer, .start-button, .next-button, .try-again{
 	padding: 20px;
 	font-size: 20px;
 }
@@ -67,6 +67,12 @@ ul{
 
 }
 
-.start, .start-button, .correct-incorrect, .next-button{
+.start, .correct-incorrect{
 	font-size: 20px;
+}
+
+.final-number{
+	font-size: 50px;
+	margin-right: auto;
+	margin-left: auto;
 }
