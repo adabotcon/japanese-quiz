@@ -3,13 +3,16 @@
 }
 
 ul{
-	border: 1px black;
+	margin-bottom: 20px;
 }
 
 .answer-list > li {
 	margin-bottom: 20px;
-	border: 1px black;
+	border: 1px solid black;
 	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 75%;
 }
 
 .answer{
@@ -17,6 +20,31 @@ ul{
 }
 
 .highlight{
-	border-color: green;
-	background-color: yellow;
+	background-color: pink;
+}
+
+.question{
+	background-color: lightgray;
+	border: 1px solid darkgray;
+	text-align: center;
+	font-size: 35px;
+	padding: 20px;
+
+}
+
+.js-question-button-form{
+	width: 100%;
+	text-align: center;
+}
+
+.question-button-form button{
+	padding: 20px;
+	font-size: 20px;
+}
+
+.quiz-info p{
+	display: inline;
+	vertical-align: top;
+	font-size: 16px;
+	line-height: 28px;
 }

@@ -18,23 +18,23 @@
 		<button type="submit" class="js-try-again">Try Again?</button>
 	</form>
 	<div class="hidden js-info-question-form">
-		<div class="js-quiz-info">
-			<label>Question: </label>
+		<div class="quiz-info js-quiz-info">
+			<p>Question: </p>
 			<p class="js-question-number"></p>
-			<label>Correct: </label>
+			<p> | Correct: </p>
 			<p class="js-number-correct"></p>
-			<label>Incorrect: </label>
+			<p> | Incorrect: </p>
 			<p class="js-number-incorrect"></p>
 		</div>
 		<div class="js-question-form"></div>
-		<form class="js-question-button-form">
-			<button type="submit" class="check-answer" id="check-answer">Check Answer</button>
-		</form>	
+		<div class="question-button-form js-question-button-form">
+			<button class="check-answer" id="check-answer">Check Answer</button>
+		</div>	
 	</div>
-	<form class="hidden js-answers-form">
+	<div class="answers-form hidden js-answers-form">
 			<span class="correct-incorrect"></span>
-			<button type="submit">Next Question</button>
-	</form>
+			<button>Next Question</button>
+	</div>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script type="text/javascript" src="app.js"></script>
 </body>

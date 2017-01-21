@@ -8,6 +8,7 @@ var infoState = {}
 function startQuiz(answerState, startElement, questionElement, answersElement, infoState){
 	startElement.submit(function(event){
 		event.preventDefault();
+		event.stopPropagation();
 		createInfoState(infoState);
 		addQuestionAnswers(answerState, startElement, startElement, questionElement, answersElement, 0, infoState);
 	})
@@ -42,7 +43,7 @@ function createAnswerState(){
 	answerState.answers.push({
 		questionID: 2,
 		question: 'Japanese names are announced and written which way (if'+
-		'the person is speaking about themselves)?',
+		' the person is speaking about themselves)?',
 		answerA: {answer: 'Family Name, First Name', correctAnswer: true},
 		answerB: {answer: 'First Name, Family Name', correctAnswer: false},
 		answerC: {answer: 'Family Name, First Name -honorific', correctAnswer: false},
@@ -52,8 +53,8 @@ function createAnswerState(){
 	answerState.answers.push({
 		questionID: 3,
 		question: 'A story created to target an audience of mostly girls is called what?',
-		answerA: {answer: 'Shōnen', correctAnswer: false},
-		answerB: {answer: 'Shōjo', correctAnswer: true},
+		answerA: {answer: 'Sh\u014Dnen', correctAnswer: false},
+		answerB: {answer: 'Sh\u014Djo', correctAnswer: true},
 		answerC: {answer: 'Yaoi', correctAnswer: false},
 		answerD: {answer: 'Yuri', correctAnswer: false}
 	});
@@ -91,13 +92,13 @@ function createAnswerState(){
 		answerA: {answer: '-kun', correctAnswer: false},
 		answerB: {answer: '-sama', correctAnswer: false},
 		answerC: {answer: '-sensei', correctAnswer: false},
-		answerD: {answer: 'senpai', correctAnswer: true}
+		answerD: {answer: '-senpai', correctAnswer: true}
 	});
 
 	answerState.answers.push({
 		questionID: 8,
 		question: 'What is the traditional food eaten in Japan at New Years?',
-		answerA: {answer: 'Osechi Ryōri', correctAnswer: true},
+		answerA: {answer: 'Osechi Ry\u014Dri', correctAnswer: true},
 		answerB: {answer: 'Ramen', correctAnswer: false},
 		answerC: {answer: 'Sushi', correctAnswer: false},
 		answerD: {answer: 'Okonomiyaki', correctAnswer: false}
@@ -121,22 +122,22 @@ function displayCurrentQuizInfo(answerState, startElement, questionElement, answ
 	}
 
 	infoState.numCurrentQuestion = infoState.numCurrentQuestion + 1;
-	console.log(infoState.numCurrentQuestion);
 	var questionID = infoState.numCurrentQuestion - 1;
-	debugger;
 
 	hideClass($('.js-info-question-form'));
 	showClass($('.js-answers-form'));
 	if(infoState.numCurrentQuestion === 11)
 	{
-		$('.js-answers-form').submit(function(event){
+		$('.js-answers-form').off('click', 'button').on('click', 'button', function(event){
 			event.preventDefault();
+			event.stopPropagation();
 			renderFinalPage(answerState, startElement, questionElement, answersElement, infoState);
 		})
 
 	}else{
-		$('.js-answers-form').submit(function(event){
+		$('.js-answers-form').off('click', 'button').on('click', 'button', function(event){
 			event.preventDefault();
+			event.stopPropagation();
 			addQuestionAnswers(answerState, startElement, $('.js-answers-form'), questionElement, answersElement, questionID, infoState);
 		})
 	}
@@ -145,7 +146,7 @@ function displayCurrentQuizInfo(answerState, startElement, questionElement, answ
 
 function getNewQuestionForm(){
 	var questionForm = '<div>' +
-		'<p class="js-question"></p>'+
+		'<p class="question js-question"></p>'+
 			'<ul class="answer-list">' +
 				'<li class="answer js-answer-a"></li>' +
 				'<li class="answer js-answer-b"></li>' +
@@ -179,7 +180,7 @@ function addQuestionAnswers(answerState, startElement, currentElement, questionE
 	renderInfoForm(infoState);
 	hideClass(currentElement);
 	showClass($('.js-info-question-form'));
-	var isCorrectAnswer = false;
+	var isCorrectAnswer = null;
 
 	$(questionElement).on('click', 'li', function(event){
 		event.stopPropagation();
@@ -188,10 +189,15 @@ function addQuestionAnswers(answerState, startElement, currentElement, questionE
 		isCorrectAnswer = isAnswerCorrect(answerState, $(this), questionID);
 	})
 
-	$('.js-question-button-form').submit(function(event){
+	$('.js-question-button-form').off('click', 'button').on('click', 'button', function(event){
 		event.preventDefault();
+		event.stopPropagation();
 		changeCorrectState(infoState, isCorrectAnswer);
-		displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, isCorrectAnswer, infoState);
+		if(isCorrectAnswer === null){
+			alert("You must click an answer!");
+		} else {
+			displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, isCorrectAnswer, infoState);
+		}
 
 	})
 }
@@ -244,11 +250,19 @@ function renderFinalPage(answerState, startElement, questionElement, answersElem
 	var finalElement = $('.js-final-page');
 
 	finalElement.find('.js-final-number-correct').text("You got " + infoState.correctAnswers + " out of 10");
+	hideClass($('.js-answers-form'));
+	showClass(finalElement);
 
 	finalElement.submit(function(event){
 		event.preventDefault();
-		startQuiz(answerState, startElement, questionElement, answersElement, infoState);
+		reStartQuiz(finalElement, answerState, startElement, questionElement, answersElement, infoState);
 	})
+}
+
+function reStartQuiz(finalElement, answerState, startElement, questionElement, answersElement, infoState){
+	hideClass(finalElement);
+	showClass(startElement);
+	startQuiz(answerState, startElement, questionElement, answersElement, infoState);
 }
 
 $(function(){
