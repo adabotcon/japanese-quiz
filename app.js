@@ -81,8 +81,8 @@ function createAnswerState(){
 		questionID: 6,
 		question: 'How do the Japanese greet a stranger?',
 		answerA: {answer: '45 degree bow', correctAnswer: false},
-		answerB: {answer: '30 degree bow', correctAnswer: false},
-		answerC: {answer: '15 degree bow', correctAnswer: true},
+		answerB: {answer: '30 degree bow', correctAnswer: true},
+		answerC: {answer: '15 degree bow', correctAnswer: false},
 		answerD: {answer: 'Nod of the head', correctAnswer: false}
 	});
 
@@ -115,6 +115,8 @@ function createAnswerState(){
 }
 
 function displayCurrentQuizInfo(answerState, startElement, questionElement, answersElement, isCorrectAnswer, infoState){
+	
+	addColor($('.js-answers-form'), isCorrectAnswer)
 	if(isCorrectAnswer){
 		$('.js-correct-incorrect').text('Correct!');
 	}else{
@@ -213,6 +215,16 @@ function hideClass(element){
 
 function showClass(element){
 	element.removeClass('hidden');
+}
+
+function addColor(element, isCorrectAnswer){
+	if(isCorrectAnswer){
+		element.removeClass('red');
+		element.addClass('green');
+	} else {
+		element.removeClass('green');
+		element.addClass('red');
+	}
 }
 
 function isAnswerCorrect(answerState, element, questionID){
