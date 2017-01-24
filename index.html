@@ -11,11 +11,11 @@
 	<div class="quiz-header">
 		<h1>Japanese Cultural Quiz</h1>
 	</div>
-	<form class="js-start-quiz">
+	<form class="start-quiz js-start-quiz">
 		<p class="start">Welcome to this quiz!</p>
 		<button type="submit" class="start-button js-start" id="start">Start</button>
 	</form>
-	<form class="hidden js-final-page">
+	<form class="hidden final-page js-final-page">
 		<p class="final-number js-final-number-correct"></p>
 		<button type="submit" class="try-again js-try-again">Try Again?</button>
 	</form>
@@ -23,6 +23,7 @@
 		<div class="quiz-info js-quiz-info">
 			<p>Question: </p>
 			<p class="js-question-number"></p>
+			<p class="js-total-question"> out of 10</p>
 			<p> | Correct: </p>
 			<p class="js-number-correct"></p>
 			<p> | Incorrect: </p>
@@ -34,8 +35,8 @@
 		</div>	
 	</div>
 	<div class="answers-form hidden js-answers-form">
-			<p class="correct-incorrect js-correct-incorrect"></p>
-			<button class="next-button">Next Question</button>
+		<p class="correct-incorrect js-correct-incorrect"></p>
+		<button class="next-button">Next Question</button>
 	</div>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script type="text/javascript" src="app.js"></script>

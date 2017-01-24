@@ -1,9 +1,29 @@
-*{
+body {
 	background-color: #a8d8f0;
+}
+
+*{
+	box-sizing: border-box;
 }
 
 .hidden{
 	display: none;
+}
+
+.green{
+	color: #c0c030;
+	background: linear-gradient(rgba(100,100,100,0.5), rgba(255,255,255,0.5)), url("balloon-1603383_1920.jpg") no-repeat center;
+	background-size: cover;
+	width: 100%;
+	height: 700px;
+}
+
+.red{
+	color: #781830;
+	background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("pagoda-1030845_1280.jpg") no-repeat center;
+	background-size: cover;
+	width: 100%;
+	height: 700px;
 }
 
 ul{
@@ -45,6 +65,7 @@ ul{
 .check-answer, .start-button, .next-button, .try-again{
 	padding: 20px;
 	font-size: 20px;
+	background-color: #a8d8f0;
 }
 
 .quiz-info p{
@@ -68,7 +89,14 @@ ul{
 }
 
 .start, .correct-incorrect{
-	font-size: 20px;
+	font-size: 50px;
+	text-align: center;
+	background-repeat: no-repeat;
+}
+
+.answers-form, .start-quiz, .final-page{
+	width: 100%;
+	text-align: center;
 }
 
 .final-number{
